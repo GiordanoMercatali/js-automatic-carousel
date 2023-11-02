@@ -3,19 +3,13 @@ const images = ['img/01.jpg', 'img/02.jpg', 'img/03.jpg', 'img/04.jpg', 'img/05.
 
 let curImageIndex = 0;
 
-let curInterval = undefined;
+let curInterval;
 
-const intervalDuration = 5000;
+const intervalDuration = 1000;
 
 for (let i = 0; i < images.length; i++) {
-    // const element = images[i];
+    
     console.log(images[i]);
-
-    /*if (i === 0) {
-        itemsElem.innerHTML += `<div class="item active"><img src="${element}" alt=""></div>`
-    } else{
-        itemsElem.innerHTML += `<div class="item"><img src="${element}" alt=""></div>`
-    }*/
 
     itemsElem.innerHTML += `<div class="item"><img src="${images[i]}" alt=""></div>`
 };
@@ -31,13 +25,10 @@ document.getElementById("next-btn").addEventListener("click", pressNextBtn);
 
 document.getElementById("prev-btn").addEventListener("click", pressPrevBtn);
 
+item.onmouseover = pauseTimer;
+
+
 function pressNextBtn(){
-        
-    // if(curImageIndex < images.length - 1){
-    //     item[curImageIndex].classList.remove("active");
-    //     curImageIndex++;
-    //     item[curImageIndex].classList.add("active");
-    // }
 
         clearInterval(curInterval);
         curInterval = setInterval(pressNextBtn, intervalDuration);
@@ -50,17 +41,10 @@ function pressNextBtn(){
             curImageIndex++;
             item[curImageIndex].classList.add("active");
         }
-        // clearInterval(curInterval);
           
 }
 
 function pressPrevBtn(){
-        
-    // if(curImageIndex > 0){
-    //     item[curImageIndex].classList.remove("active");
-    //     curImageIndex--;
-    //     item[curImageIndex].classList.add("active");
-    // }
 
     clearInterval(curInterval);
     curInterval = setInterval(pressNextBtn, intervalDuration);
@@ -73,7 +57,7 @@ function pressPrevBtn(){
             curImageIndex--;
             item[curImageIndex].classList.add("active");
         }
-        // clearInterval(curInterval);
+        
 }
 
 
@@ -82,4 +66,9 @@ function startTimer(){
     if (curInterval === undefined){
         curInterval = setInterval(pressNextBtn, intervalDuration);
     }
+}
+
+function pauseTimer(){
+    clearInterval(curInterval);
+    curInterval = undefined;
 }
