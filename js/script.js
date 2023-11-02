@@ -5,7 +5,7 @@ let curImageIndex = 0;
 
 let curInterval;
 
-const intervalDuration = 1000;
+const intervalDuration = 3000;
 
 for (let i = 0; i < images.length; i++) {
     
@@ -14,10 +14,10 @@ for (let i = 0; i < images.length; i++) {
     itemsElem.innerHTML += `<div class="item"><img src="${images[i]}" alt=""></div>`
 };
 
-const item = document.querySelectorAll(".item");
-console.log(item);
+const itemElem = document.querySelectorAll(".item");
+console.log(itemElem);
 
-item[curImageIndex].classList.add("active");
+itemElem[curImageIndex].classList.add("active");
 
 startTimer();
 
@@ -25,7 +25,8 @@ document.getElementById("next-btn").addEventListener("click", pressNextBtn);
 
 document.getElementById("prev-btn").addEventListener("click", pressPrevBtn);
 
-item.onmouseover = pauseTimer;
+document.getElementById("item-hover").addEventListener("mouseover", pauseTimer);
+document.getElementById("item-hover").addEventListener("mouseout", startTimer);
 
 
 function pressNextBtn(){
@@ -33,13 +34,13 @@ function pressNextBtn(){
         clearInterval(curInterval);
         curInterval = setInterval(pressNextBtn, intervalDuration);
         
-        item[curImageIndex].classList.remove("active");
+        itemElem[curImageIndex].classList.remove("active");
         if (curImageIndex >= images.length - 1){
             curImageIndex = 0;
-            item[curImageIndex].classList.add("active");}
+            itemElem[curImageIndex].classList.add("active");}
         else{
             curImageIndex++;
-            item[curImageIndex].classList.add("active");
+            itemElem[curImageIndex].classList.add("active");
         }
           
 }
@@ -49,20 +50,20 @@ function pressPrevBtn(){
     clearInterval(curInterval);
     curInterval = setInterval(pressNextBtn, intervalDuration);
 
-    item[curImageIndex].classList.remove("active");
+    itemElem[curImageIndex].classList.remove("active");
         if (curImageIndex <= 0){
             curImageIndex = images.length - 1;
-            item[curImageIndex].classList.add("active");}
+            itemElem[curImageIndex].classList.add("active");}
         else{
             curImageIndex--;
-            item[curImageIndex].classList.add("active");
+            itemElem[curImageIndex].classList.add("active");
         }
         
 }
 
 
 function startTimer(){
-    
+    console.log("Start");
     if (curInterval === undefined){
         curInterval = setInterval(pressNextBtn, intervalDuration);
     }
@@ -71,4 +72,5 @@ function startTimer(){
 function pauseTimer(){
     clearInterval(curInterval);
     curInterval = undefined;
+    console.log("Pause");
 }
